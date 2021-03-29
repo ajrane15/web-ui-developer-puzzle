@@ -8,8 +8,10 @@
       <div class="reading-list-item--details--author">
         {{ b.authors.join(',') }}
       </div>
+      <div *ngIf = "b.finished">Finished</div>
     </div>
     <div>
+      <button (click)="finished(b)" mat-icon-button [attr.aria-label]="'Mark as read'" data-testing="finished-button"><mat-icon [ngStyle]="{'color': b.finished ? 'green' : 'black'}">check_circle</mat-icon></button>
       <button
         mat-icon-button
         color="warn"

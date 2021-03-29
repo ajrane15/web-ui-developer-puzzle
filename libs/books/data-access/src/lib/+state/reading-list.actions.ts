@@ -1,3 +1,4 @@
+import { Update } from '@ngrx/entity';
 import { createAction, props } from '@ngrx/store';
 import { Book, ReadingListItem } from '@tmo/shared/models';
 
@@ -40,4 +41,19 @@ export const failedRemoveFromReadingList = createAction(
 export const confirmedRemoveFromReadingList = createAction(
   '[Reading List API] Confirmed remove from list',
   props<{ item: ReadingListItem }>()
+);
+
+export const markFinished = createAction(
+  '[Books Search Results] Mark book finished',
+  props<Update<ReadingListItem>>()
+);
+
+export const failedFinishBook = createAction(
+  '[Reading List API] Failed marking book finished',
+  props<{ id: string }>()
+);
+
+export const confirmedFinishBook = createAction(
+  '[Reading List API] Confirmed marking book finished',
+  props<{ id: string }>()
 );
