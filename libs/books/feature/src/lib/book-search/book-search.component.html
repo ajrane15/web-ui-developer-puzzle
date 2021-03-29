@@ -40,7 +40,7 @@
               (click)="addBookToReadingList(b)"
               [disabled]="b.isAdded"
               aria-label="Want to Read">
-              Want to Read
+              {{ buttonLabel(b.id) }}
             </button>
           </div>
         </div>

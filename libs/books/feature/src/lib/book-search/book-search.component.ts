@@ -4,6 +4,7 @@ import {
   addToReadingList,
   clearSearch,
   getAllBooks,
+  getReadingList,
   ReadingListBook,
   searchBooks
 } from '@tmo/books/data-access';
@@ -22,6 +23,7 @@ export class BookSearchComponent implements OnInit, OnDestroy {
   searchForm = this.fb.group({
     term: ''
   });
+  finishedBooks: string[] = [];
 
   constructor(
     private readonly store: Store,
@@ -35,6 +37,10 @@ export class BookSearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getBooksSubscription = this.store.select(getAllBooks).subscribe(books => {
       this.books = books;
+    });
+
+    this.store.select(getReadingList).subscribe(list => {
+      this.finishedBooks = list.filter(item => item.finished).map(item => item.bookId);
     });
   }
 
@@ -59,6 +65,10 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(clearSearch());
     }
+  }
+
+  buttonLabel(id: string): string {
+    return this.finishedBooks.includes(id) ? 'Finished' : 'Want to Read';
   }
 
   ngOnDestroy(): void {
